@@ -10,7 +10,7 @@ import Foundation
 
 public final class AttributeManager {
     public enum Style {
-        case Title, Description, Domain, NoDataTitle
+        case Title, Description, Domain, NoDataTitle, ErrorDescription
         
         var font: UIFont {
             switch self {
@@ -18,12 +18,13 @@ public final class AttributeManager {
             case .Description : return .systemFontOfSize(14)
             case .Domain      : return .systemFontOfSize(10)
             case .NoDataTitle : return .systemFontOfSize(16)
+            case .ErrorDescription : return .systemFontOfSize(14)
             }
         }
         
         var numberOfLines: Int {
             switch self {
-            case .Title, .NoDataTitle : return 2
+            case .Title, .NoDataTitle, .ErrorDescription : return 2
             case .Description         : return 1
             case .Domain              : return 1
             }
@@ -33,6 +34,8 @@ public final class AttributeManager {
             switch self {
             case .Description, .Domain, .NoDataTitle, .Title:
                 return .blackColor()
+            case .ErrorDescription:
+                return .redColor();
             }
         }
     }

@@ -50,7 +50,7 @@ final class URLImageView: UIImageView {
                     return
                 }
                 self?.image = image
-                completion?(image, nil)
+                completion?(image, error)
             }
         }
     }

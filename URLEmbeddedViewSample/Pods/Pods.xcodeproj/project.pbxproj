@@ -19,6 +19,7 @@
 		1EA73B6D21BFE5D68D8FD050F1974D29 /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F28BC0F7AA605BE531A3015F70E12D /* CryptoSwift-dummy.m */; };
 		1F7F615FACAB762DCAD7887A4E785FFC /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10FE7140528BE067B27C1EBF9F18225 /* IntExtension.swift */; };
 		1FDBF1B5698B7647CE7AA54385DD1702 /* UInt64Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB43BFF585BA16B277148B90C9B59EE /* UInt64Extension.swift */; };
+		205CEE6A1CAFB7A6000A75CC /* error-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 205CEE691CAFB7A6000A75CC /* error-icon.png */; };
 		22636CE1C55E8CA607798DEEABC3E8B7 /* MisterFusion-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2980D67840BECAB4CD73DA804E624 /* MisterFusion-dummy.m */; };
 		22703CEA6D021CAB54FE629FC3ED2534 /* OGImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281045040032241AB18FA36BB0FE86C /* OGImageProvider.swift */; };
 		295129910F87123C4F23EDCA25E40EDE /* HashProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756D7BF8B058596725C224FB6A969534 /* HashProtocol.swift */; };
@@ -157,6 +158,7 @@
 		194540F4B8CC0CC08797DB33C1D5C59A /* ArraySliceUInt8+Bytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ArraySliceUInt8+Bytes.swift"; path = "Sources/CryptoSwift/ArraySliceUInt8+Bytes.swift"; sourceTree = "<group>"; };
 		19565A5115E27B1B2A28F87304AA44A2 /* Kanna.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Kanna.modulemap; sourceTree = "<group>"; };
 		1BB682E50EF33C72830AFA4B6E0962E4 /* OGData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGData.swift; sourceTree = "<group>"; };
+		205CEE691CAFB7A6000A75CC /* error-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error-icon.png"; sourceTree = "<group>"; };
 		25C4E5F32440ED0B641D1B98A7F5E255 /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
 		290F2E368E4897D3A20E9F88B18512CA /* Utils+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Utils+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Utils+Foundation.swift"; sourceTree = "<group>"; };
 		2AE14075C69FBA823E8180D9CC2D7C28 /* OGDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OGDataProvider.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		042C310A2BB3F0C39CCC4C18D6E99E63 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				205CEE691CAFB7A6000A75CC /* error-icon.png */,
 				D7C991C10C4397530B1FB984C363CDF4 /* LinkIcon.pdf */,
 				BDA791DCAE972781EF6EE04EDFA03137 /* URLEmbeddedViewOGData.xcdatamodeld */,
 			);
@@ -748,6 +751,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				205CEE6A1CAFB7A6000A75CC /* error-icon.png in Resources */,
 				5AC3BB286E00A1C95852FB4F1EADF039 /* LinkIcon.pdf in Resources */,
 				6DBE42DABA7CAE6F70AB0E93C8AE6CC2 /* URLEmbeddedViewOGData.xcdatamodeld in Resources */,
 			);

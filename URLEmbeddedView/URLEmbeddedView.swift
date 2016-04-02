@@ -23,6 +23,7 @@ public class URLEmbeddedView: UIView {
     private let titleLabel = UILabel()
     private var titleLabelHeightConstraint: NSLayoutConstraint?
     private let descriptionLabel = UILabel()
+    private let errorLabel = UILabel()
     
     private let domainConainter = UIView()
     private var domainContainerHeightConstraint: NSLayoutConstraint?
@@ -47,6 +48,7 @@ public class URLEmbeddedView: UIView {
             imageView.stopTaskWhenCancel = stopTaskWhenCancel
         }
     }
+    public var errorImage: UIImage?
     
     public convenience init() {
         self.init(frame: .zero)
@@ -84,6 +86,7 @@ public class URLEmbeddedView: UIView {
         imageView.image = nil
         titleLabel.attributedText = nil
         descriptionLabel.attributedText = nil
+        errorLabel.attributedText = nil
         domainLabel.attributedText = nil
         domainImageView.image = nil
         linkIconView.hidden = true
@@ -93,6 +96,7 @@ public class URLEmbeddedView: UIView {
         borderColor = .lightGrayColor()
         borderWidth = 1
         cornerRaidus = 8
+        self.errorImage = UIImage (named: "error-icon.png", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil);
     }
     
     private func configureViews() {
@@ -119,7 +123,7 @@ public class URLEmbeddedView: UIView {
             imageView.Left,
             imageView.Bottom
         )
-        changeImageViewWidthConstrain(nil)
+        changeImageViewWidthConstraint(nil)
         
         titleLabel.numberOfLines = textProvider[.Title].numberOfLines
         addLayoutSubview(titleLabel, andConstraints:
@@ -141,10 +145,17 @@ public class URLEmbeddedView: UIView {
             descriptionLabel.Right  |-| 12,
             descriptionLabel.Height |>=| 0,
             descriptionLabel.Top    |==| titleLabel.Bottom   |+| 2,
-            descriptionLabel.Bottom |<=| domainConainter.Top |+| 4,
             descriptionLabel.Left   |==| imageView.Right     |+| 12
         )
         
+        errorLabel.numberOfLines = textProvider[.ErrorDescription].numberOfLines
+        addLayoutSubview(errorLabel, andConstraints:
+            errorLabel.Right  |-| 12,
+            errorLabel.Height |>=| 0,
+            errorLabel.Top    |==| descriptionLabel.Bottom   |+| 2,
+            errorLabel.Left   |==| imageView.Right     |+| 12
+        )
+
         domainImageView.activityViewHidden = true
         domainConainter.addLayoutSubview(domainImageView, andConstraints:
             domainImageView.Top,
@@ -194,7 +205,7 @@ public class URLEmbeddedView: UIView {
 }
 
 extension URLEmbeddedView {
-    private func changeImageViewWidthConstrain(constant: CGFloat?) {
+    private func changeImageViewWidthConstraint(constant: CGFloat?) {
         if let constraint = imageViewWidthConstraint {
             removeConstraint(constraint)
         }
@@ -256,6 +267,7 @@ extension URLEmbeddedView {
         case .Domain:      didChangeDomainAttirbute(attribute, value: value)
         case .Description: didChangeDescriptionAttirbute(attribute, value: value)
         case .NoDataTitle: didChangeNoDataTitleAttirbute(attribute, value: value)
+        case .ErrorDescription: didChangeNoDataTitleAttirbute(attribute, value: value)
         }
     }
     
@@ -310,14 +322,15 @@ extension URLEmbeddedView {
             dispatch_async(dispatch_get_main_queue()) {
                 self?.activityView.stopAnimating()
                 if let error = error {
-                    self?.imageView.image = nil
+                    self?.imageView.image = self?.errorImage;
                     self?.titleLabel.attributedText = self?.textProvider[.NoDataTitle].attributedText(URL.absoluteString)
-                    self?.descriptionLabel.attributedText = nil
+                    self?.descriptionLabel.attributedText = nil;
+                    self?.errorLabel.attributedText = self?.textProvider[.ErrorDescription].attributedText(error.localizedDescription);
                     self?.domainLabel.attributedText = self?.textProvider[.Domain].attributedText(URL.host ?? "")
                     self?.changeDomainImageViewWidthConstraint(0)
                     self?.changeDomainImageViewToDomainLabelConstraint(0)
-                    self?.changeImageViewWidthConstrain(nil)
-                    self?.linkIconView.hidden = false
+                    self?.changeImageViewWidthConstraint(nil)
+                    self?.linkIconView.hidden = true
                     self?.layoutIfNeeded()
                     completion?(error)
                     return
@@ -332,15 +345,16 @@ extension URLEmbeddedView {
                 self?.descriptionLabel.attributedText = self?.textProvider[.Description].attributedText(ogData.pageDescription)
                 if !ogData.imageUrl.isEmpty {
                     self?.imageView.loadImage(urlString: ogData.imageUrl) {
-                        if let _ = $0 where $1 == nil {
-                            self?.changeImageViewWidthConstrain(nil)
+                        image, error in
+                        if let _ = image where error == nil {
+                            self?.changeImageViewWidthConstraint(nil)
                         } else {
-                            self?.changeImageViewWidthConstrain(0)
+                            self?.linkIconView.hidden = false
                         }
                         self?.layoutIfNeeded()
                     }
                 } else {
-                    self?.changeImageViewWidthConstrain(0)
+                    self?.changeImageViewWidthConstraint(0)
                     self?.imageView.image = nil
                 }
                 let host = URL.host ?? ""

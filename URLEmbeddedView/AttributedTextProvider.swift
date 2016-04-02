@@ -15,6 +15,7 @@ public final class AttributedTextProvider {
     private let DomainAttributeManager      = AttributeManager(style: .Domain)
     private let DescriptionAttributeManager = AttributeManager(style: .Description)
     private let NoDataTitleAttributeManager = AttributeManager(style: .NoDataTitle)
+    private let ErrorDescriptionAttributeManager = AttributeManager(style: .ErrorDescription)
     
     var didChangeValue: ((AttributeManager.Style, AttributeManager.Attribute, Any) -> Void)?
     
@@ -23,6 +24,7 @@ public final class AttributedTextProvider {
         self[.Domain].didChangeValue      = { [weak self] in self?.didChangeValue?($0, $1, $2) }
         self[.Description].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
         self[.NoDataTitle].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
+        self[.ErrorDescription].didChangeValue = { [weak self] in self?.didChangeValue?($0, $1, $2) }
     }
     
     public subscript(style: AttributeManager.Style) -> AttributeManager {
@@ -31,6 +33,7 @@ public final class AttributedTextProvider {
         case .Domain      : return DomainAttributeManager
         case .Description : return DescriptionAttributeManager
         case .NoDataTitle : return NoDataTitleAttributeManager
+        case .ErrorDescription : return ErrorDescriptionAttributeManager
         }
     }
     
@@ -39,6 +42,7 @@ public final class AttributedTextProvider {
         self[.Domain].didChangeValue      = { closure?($0, $1, $2) }
         self[.Description].didChangeValue = { closure?($0, $1, $2) }
         self[.NoDataTitle].didChangeValue = { closure?($0, $1, $2) }
+        self[.ErrorDescription].didChangeValue = { closure?($0, $1, $2) }
     }
 }
 
